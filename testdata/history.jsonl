@@ -1,0 +1,3 @@
+{"display":"Test Prompt 1","timestamp":1780000000000,"workspace":"/mock/project1","conversationId":"sess-id-1"}
+{"display":"Test Prompt 2","timestamp":1780001000000,"workspace":"/mock/project2","conversationId":"sess-id-2"}
+{"display":"Test Prompt 2 Updated","timestamp":1780002000000,"workspace":"/mock/project2","conversationId":"sess-id-2"}
