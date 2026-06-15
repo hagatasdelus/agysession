@@ -185,7 +185,7 @@ func loadMessages(path string) ([]messageItem, time.Time, int, error) {
 				total++
 			}
 		}
-		if err == io.EOF {
+		if errors.Is(err, io.EOF) {
 			return collectRing(ring, total), startedAt, total, nil
 		}
 		if err != nil {
@@ -226,7 +226,7 @@ func readJSONLLine(r *bufio.Reader, max int) (string, error) {
 				}
 			}
 		}
-		if err == bufio.ErrBufferFull {
+		if errors.Is(err, bufio.ErrBufferFull) {
 			truncated = true
 			continue
 		}
@@ -249,12 +249,18 @@ func parseMessageLine(line string) (messageItem, time.Time, bool) {
 		return messageItem{}, time.Time{}, false
 	}
 	role := "user"
-	if e.Source == "MODEL" {
+	body := e.Content
+	switch e.Source {
+	case "USER_EXPLICIT":
+		body = session.CleanUserRequest(body)
+	case "MODEL":
 		role = "assistant"
+		body = session.CleanAssistantResponse(body)
 	}
 	ts := timefmt.Parse(e.CreatedAt)
-	return messageItem{Role: role, Timestamp: ts, Body: e.Content}, ts, true
+	return messageItem{Role: role, Timestamp: ts, Body: body}, ts, true
 }
+
 
 func relativeOrFuture(t, now time.Time) string {
 	if !t.IsZero() && t.After(now) {

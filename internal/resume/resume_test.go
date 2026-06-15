@@ -21,7 +21,7 @@ func TestRun(t *testing.T) {
 		`{"display":"Test","timestamp":1780000000000,"workspace":%q,"conversationId":"sess-resume-1"}`+"\n",
 		workspaceDir,
 	)
-	if err := os.WriteFile(filepath.Join(tempDir, "history.jsonl"), []byte(historyContent), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(tempDir, "history.jsonl"), []byte(historyContent), 0600); err != nil {
 		t.Fatalf("failed to write history.jsonl: %v", err)
 	}
 
@@ -30,7 +30,7 @@ func TestRun(t *testing.T) {
 	if err := os.MkdirAll(logDir, 0755); err != nil {
 		t.Fatalf("failed to create log dir: %v", err)
 	}
-	if err := os.WriteFile(filepath.Join(logDir, "transcript.jsonl"), []byte("{}\n"), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(logDir, "transcript.jsonl"), []byte("{}\n"), 0600); err != nil {
 		t.Fatalf("failed to write transcript: %v", err)
 	}
 

@@ -1,0 +1,9 @@
+analyzers:
+  disable:
+    - mixedcaps
+analyzers-settings:
+  varnames:
+    small-varname-max: 4
+    medium-varname-max: 8
+    large-varname-max: 16
+    very-large-varname-max: 32
