@@ -58,6 +58,11 @@ func TestParseMessageLine(t *testing.T) {
 			wantBody: "Hello assistant",
 			wantOk:   true,
 		},
+		{
+			name:     "Assistant message from command execution (should be ignored)",
+			line:     `{"step_index":1,"source":"MODEL","type":"RUN_COMMAND","status":"DONE","created_at":"2026-05-30T00:02:30Z","content":"The command completed successfully."}`,
+			wantOk:   false,
+		},
 	}
 
 	for _, tc := range tests {

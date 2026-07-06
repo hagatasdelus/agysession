@@ -23,7 +23,7 @@ func IterContent(path string, fn func(text string) bool) error {
 		if line != "" {
 			var e TranscriptEntry
 			if err := json.Unmarshal([]byte(line), &e); err == nil {
-				if (e.Source == "USER_EXPLICIT" || e.Source == "MODEL") && e.Content != "" {
+				if (e.IsUserRequest() || e.IsAssistantResponse()) && e.Content != "" {
 					content := e.Content
 					switch e.Source {
 					case "USER_EXPLICIT":

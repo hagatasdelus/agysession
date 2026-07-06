@@ -41,3 +41,13 @@ type TranscriptEntry struct {
 	CreatedAt string `json:"created_at"` // RFC3339 timestamp
 	Content   string `json:"content"`
 }
+
+// IsUserRequest returns true if the entry represents a user request.
+func (e *TranscriptEntry) IsUserRequest() bool {
+	return e.Source == "USER_EXPLICIT" && e.Type == "USER_INPUT"
+}
+
+// IsAssistantResponse returns true if the entry represents an assistant response.
+func (e *TranscriptEntry) IsAssistantResponse() bool {
+	return e.Source == "MODEL" && e.Type == "PLANNER_RESPONSE"
+}

@@ -242,7 +242,7 @@ func parseMessageLine(line string) (messageItem, time.Time, bool) {
 	if err := json.Unmarshal([]byte(line), &e); err != nil {
 		return messageItem{}, time.Time{}, false
 	}
-	if e.Source != "USER_EXPLICIT" && e.Source != "MODEL" {
+	if !e.IsUserRequest() && !e.IsAssistantResponse() {
 		return messageItem{}, time.Time{}, false
 	}
 	if e.Content == "" {
@@ -250,12 +250,11 @@ func parseMessageLine(line string) (messageItem, time.Time, bool) {
 	}
 	role := "user"
 	body := e.Content
-	switch e.Source {
-	case "USER_EXPLICIT":
-		body = session.CleanUserRequest(body)
-	case "MODEL":
+	if e.IsAssistantResponse() {
 		role = "assistant"
 		body = session.CleanAssistantResponse(body)
+	} else if e.IsUserRequest() {
+		body = session.CleanUserRequest(body)
 	}
 	ts := timefmt.Parse(e.CreatedAt)
 	return messageItem{Role: role, Timestamp: ts, Body: body}, ts, true
