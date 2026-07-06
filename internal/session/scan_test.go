@@ -69,3 +69,52 @@ func TestIterContent(t *testing.T) {
 		t.Errorf("unexpected messages: %v", messages)
 	}
 }
+
+func TestCleanAssistantResponse(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "Both timestamps",
+			input:    "Created At: 2026-06-10T08:02:12Z\nCompleted At: 2026-06-10T08:02:23Z\nHello assistant",
+			expected: "Hello assistant",
+		},
+		{
+			name:     "Both timestamps with empty lines",
+			input:    "Created At: 2026-06-10T08:02:12Z\nCompleted At: 2026-06-10T08:02:23Z\n\nHello assistant",
+			expected: "Hello assistant",
+		},
+		{
+			name:     "No timestamps",
+			input:    "Hello assistant\nCreated At: 2026-06-10T08:02:12Z",
+			expected: "Hello assistant\nCreated At: 2026-06-10T08:02:12Z",
+		},
+		{
+			name:     "Only timestamps",
+			input:    "Created At: 2026-06-10T08:02:12Z\nCompleted At: 2026-06-10T08:02:23Z",
+			expected: "",
+		},
+		{
+			name:     "Created At only",
+			input:    "Created At: 2026-06-10T08:02:12Z\nHello",
+			expected: "Hello",
+		},
+		{
+			name:     "Completed At only",
+			input:    "Completed At: 2026-06-10T08:02:23Z\nHello",
+			expected: "Hello",
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			got := CleanAssistantResponse(tc.input)
+			if got != tc.expected {
+				t.Errorf("got CleanAssistantResponse(%q) = %q, want %q", tc.input, got, tc.expected)
+			}
+		})
+	}
+}
+

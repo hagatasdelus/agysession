@@ -67,4 +67,4 @@ agysession --help
 
 ## License
 
-[MIT](./LICENSE)
+MIT
