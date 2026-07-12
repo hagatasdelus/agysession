@@ -4,7 +4,7 @@
 
 `agysession` lists every Antigravity CLI session under `~/.gemini/antigravity-cli/brain`, lets you fuzzy-find across all of your projects with a live preview pane, and resumes the one you pick in its original working directory.
 
-This tool is inspired by [`ccsession`](https://github.com/sorafujitani/ccsession) but adapted for the Antigravity CLI (`agy`).
+This tool is inspired by [`ccsession`](https://github.com/sorafujitani/ccsession) (MIT License) but adapted for the Antigravity CLI (`agy`).
 
 ---
 
