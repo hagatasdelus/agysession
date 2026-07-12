@@ -38,13 +38,20 @@ func TestRun(t *testing.T) {
 	var calledArgv0 string
 	var calledArgv []string
 	originalExecve := execve
-	defer func() { execve = originalExecve }()
+	originalLookPath := lookPath
+	defer func() {
+		execve = originalExecve
+		lookPath = originalLookPath
+	}()
 
 	execve = func(argv0 string, argv []string, envv []string) error {
 		called++
 		calledArgv0 = argv0
 		calledArgv = argv
 		return nil
+	}
+	lookPath = func(file string) (string, error) {
+		return "/mock/bin/agy", nil
 	}
 
 	err := Run("sess-resume-1")

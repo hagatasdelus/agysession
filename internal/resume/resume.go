@@ -12,6 +12,7 @@ import (
 )
 
 var execve = syscall.Exec
+var lookPath = exec.LookPath
 
 // Run changes the directory to the original session CWD and execs "agy --conversation <id>"
 // replacing the current process.
@@ -33,7 +34,7 @@ func Run(id string) error {
 		return fmt.Errorf("original cwd is gone: %s", s.CWD)
 	}
 
-	agyPath, err := exec.LookPath("agy")
+	agyPath, err := lookPath("agy")
 	if err != nil {
 		// Fallback to ~/.local/bin/agy
 		home, err2 := os.UserHomeDir()
