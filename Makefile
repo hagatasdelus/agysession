@@ -35,7 +35,10 @@ $(GOBIN)/gocredits:
 
 credits: $(GOBIN)/gocredits
 	go mod download
-	gocredits -w .
+	$(GOBIN)/gocredits -w .
+	@if [ -f .github/assets/CREDITS.extra ]; then \
+		cat .github/assets/CREDITS.extra >> CREDITS; \
+	fi
 
 release-dry-run:
 	goreleaser release --snapshot --clean
