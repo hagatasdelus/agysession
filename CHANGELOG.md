@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.2](https://github.com/hagatasdelus/agysession/compare/v0.1.1...v0.1.2) - 2026-09-26
+
+- build(deps): bump the github-actions group with 5 updates by @hagatasdelus in https://github.com/hagatasdelus/agysession/pull/5
+
 ## [v0.1.1](https://github.com/hagatasdelus/agysession/compare/v0.1.0...v0.1.1) - 2026-09-16
 
 ## [v0.1.0](https://github.com/hagatasdelus/agysession/commits/v0.1.0) - 2026-07-12
