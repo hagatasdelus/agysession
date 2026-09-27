@@ -26,13 +26,23 @@ This tool is inspired by [`ccsession`](https://github.com/sorafujitani/ccsession
 
 ## Install
 
-### Go
+**go install:**
 
 ```sh
 go install github.com/hagatasdelus/agysession@latest
 ```
 
 Version metadata is recovered from `runtime/debug.ReadBuildInfo`, so `agysession --version` works for `go install` builds as well.
+
+**homebrew-tap:**
+
+```sh
+brew install hagatasdelus/tap/agysession
+```
+
+**manually:**
+
+Download prebuilt binaries from the [releases page](https://github.com/hagatasdelus/agysession/releases).
 
 ## Usage
 
